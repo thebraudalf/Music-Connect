@@ -1,0 +1,29 @@
+{
+  "name": "music-connect",
+  "version": "1.0.0",
+  "description": "Listen and share music of your taste",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebraudalf/Music-Connect.git"
+  },
+  "keywords": [
+    "music",
+    "connect",
+    "backend",
+    "frontend"
+  ],
+  "author": "music-connect-team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thebraudalf/Music-Connect/issues"
+  },
+  "homepage": "https://github.com/thebraudalf/Music-Connect#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "prettier": "^3.5.3"
+  }
+}

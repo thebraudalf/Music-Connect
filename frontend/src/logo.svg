@@ -1,0 +1,15 @@
+<!-- src/assets/logo.svg -->
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8a4dff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff4081;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path 
+    d="M50 15L35 25V65L50 75L65 65V25L50 15ZM50 28.75L57.5 24.25V56.75L50 61.25L42.5 56.75V24.25L50 28.75Z" 
+    fill="url(#gradient)"
+  />
+  <circle cx="50" cy="80" r="5" fill="url(#gradient)" />
+ 
+</svg>

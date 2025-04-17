@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { HomeIcon, SearchIcon, LibraryIcon } from './Icons';
+import { HomeIcon, SearchIcon, LibraryIcon, ChatIcon } from './Icons';
 import logo from '../logo.svg';
+import Chat from './Chat';
 
 const SidebarContainer = styled.div`
   width: 280px;
@@ -134,53 +135,96 @@ const Playlists = styled.div`
   }
 `;
 
+const ChatSection = styled.div`
+  padding: 16px;
+  border-top: 1px solid rgba(138, 77, 255, 0.1);
+  margin-top: auto;
+`;
+
+const ChatButton = styled.button`
+  width: 100%;
+  padding: 12px;
+  background: rgba(138, 77, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  color: #b3b3b3;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(138, 77, 255, 0.2);
+    color: #ffffff;
+    
+    svg {
+      fill: #8a4dff;
+    }
+  }
+`;
+
 function Sidebar() {
+  const [showChat, setShowChat] = useState(false);
+
   return (
-    <SidebarContainer>
-      <LogoContainer>
-        <Logo src={logo} alt="Music Connect Logo" />
-        <AppName>Music Connect</AppName>
-      </LogoContainer>
-      
-      <NavMenu>
-        <NavItem>
-          <Link to="/" className="active">
-            <HomeIcon />
-            Home
-          </Link>
-        </NavItem>
-        <NavItem>
-          <Link to="/search">
-            <SearchIcon />
-            Search
-          </Link>
-        </NavItem>
-        <NavItem>
-          <Link to="/library">
-            <LibraryIcon />
-            Your Library
-          </Link>
-        </NavItem>
-      </NavMenu>
-      
-      <Divider />
-      
-      <Playlists>
-        <h2>Your Playlists</h2>
-        <ul>
-          <li>Liked Songs</li>
-          <li>Discover Weekly</li>
-          <li>Daily Mix 1</li>
-          <li>Chill Vibes</li>
-          <li>Top Hits 2023</li>
-          <li>Workout Mix</li>
-          <li>Late Night Jazz</li>
-          <li>Focus Flow</li>
-          <li>Mood Booster</li>
-          <li>Throwback Jams</li>
-        </ul>
-      </Playlists>
-    </SidebarContainer>
+    <>
+      <SidebarContainer>
+        <LogoContainer>
+          <Logo src={logo} alt="Music Connect Logo" />
+          <AppName>Music Connect</AppName>
+        </LogoContainer>
+        
+        <NavMenu>
+          <NavItem>
+            <Link to="/" className="active">
+              <HomeIcon />
+              Home
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/search">
+              <SearchIcon />
+              Search
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/library">
+              <LibraryIcon />
+              Your Library
+            </Link>
+          </NavItem>
+        </NavMenu>
+        <ChatSection>
+          <ChatButton onClick={() => setShowChat(!showChat)}>
+            <ChatIcon />
+            Chat
+          </ChatButton>
+        </ChatSection>
+        <Divider />
+        
+        <Playlists>
+          <h2>Your Playlists</h2>
+          <ul>
+            <li>Liked Songs</li>
+            <li>Discover Weekly</li>
+            <li>Daily Mix 1</li>
+            <li>Chill Vibes</li>
+            <li>Top Hits 2023</li>
+            <li>Workout Mix</li>
+            <li>Late Night Jazz</li>
+            <li>Focus Flow</li>
+            <li>Mood Booster</li>
+            <li>Throwback Jams</li>
+          </ul>
+        </Playlists>
+
+        
+      </SidebarContainer>
+      {showChat && <Chat isSidebar={true} />}
+    </>
   );
 }
 

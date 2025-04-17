@@ -110,12 +110,12 @@ const PlayerControls = styled.div`
         left: 0;
         top: 0;
         height: 100%;
-        background-color: #b3b3b3;
+      background: linear-gradient(90deg, #8a4dff, #ff4081);
         border-radius: 2px;
         
         &:hover {
-          background-color: #1db954;
-        }
+      color: #8a4dff;
+    }
       }
     }
   }
@@ -147,12 +147,12 @@ const ExtraControls = styled.div`
         left: 0;
         top: 0;
         height: 100%;
-        background-color: #b3b3b3;
+        background: linear-gradient(90deg, #8a4dff, #ff4081);
         border-radius: 2px;
         
-        &:hover {
-          background-color: #1db954;
-        }
+         &:hover {
+      color: #8a4dff;
+    }
       }
     }
   }

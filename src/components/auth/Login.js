@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import axios from 'axios';
 import logo from '../../logo.svg'; // Update path to your SVG file
 
 const LoginContainer = styled.div`
@@ -131,23 +132,29 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     try {
-      const userData = {
-        email,
-        name: email.split('@')[0],
-      };
-      
-      login(userData);
-      navigate('/home');
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_LOGIN_ENDPOINT}`,
+        { email, password }
+      );
+      console.log(response.data);
+      if (response.data.data.accessToken) {
+        login(response.data.data.accessToken);
+        navigate('/home');
+      }
     } catch (err) {
-      setError('Invalid email or password');
+      setError(err.response?.data?.message || 'Failed to login. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -171,7 +178,9 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button type="submit">Log In</Button>
+        <Button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </Button>
         <SignupLink to="/signup">Don't have an account? Sign up</SignupLink>
       </LoginForm>
 

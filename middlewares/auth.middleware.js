@@ -14,7 +14,7 @@ const verifyJWT = asyncHandler(async (req, _, next) => {
     try {
         // getting access token from cookies and from authorization header
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
-        console.log(token);
+        //console.log(token);
 
         // checking if is there any token 
         if (!token) {
@@ -34,7 +34,7 @@ const verifyJWT = asyncHandler(async (req, _, next) => {
         req.user = user;
         next()
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         throw new ApiError(401, error?.message || "Invalid access Token")
     }
 })

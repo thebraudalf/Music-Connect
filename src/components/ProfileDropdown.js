@@ -123,14 +123,14 @@ const ProfileDropdown = () => {
       
       {isOpen && (
         <DropdownMenu>
-          <MenuItem to="/profile" onClick={() => setIsOpen(false)}>
+          {/* <MenuItem to="/profile" onClick={() => setIsOpen(false)}>
             <ProfileIcon />
             View Profile
           </MenuItem>
           <MenuItem to="/account" onClick={() => setIsOpen(false)}>
             <SettingsIcon />
             Account Settings
-          </MenuItem>
+          </MenuItem> */}
           <LogoutButton onClick={handleLogout}>
             <LogoutIcon />
             Log Out

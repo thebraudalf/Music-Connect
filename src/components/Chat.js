@@ -159,7 +159,7 @@ const Chat = ({ isSidebar = false }) => {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get( `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_CHAT_ENDPOINT}`);
+      const response = await axios.get( `${process.env.REACT_APP_API_URL}/api/v1/messages/get-messages`);
       if (response.data.success) {
         const transformedMessages = response.data.data.message.flatMap((msg, index) => [
           {
@@ -204,7 +204,7 @@ const Chat = ({ isSidebar = false }) => {
     setNewMessage('');
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_SEND_MESSAGE_ENDPOINT}`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/messages/send-message`, {
         receiverMessage: newMessage
       });
 

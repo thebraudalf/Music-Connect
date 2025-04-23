@@ -143,7 +143,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_LOGIN_ENDPOINT}`,
+        `${process.env.REACT_APP_API_URL}/api/v1/users/login`,
         { email, password }
       );
       console.log(response.data);

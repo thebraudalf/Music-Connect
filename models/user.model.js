@@ -26,11 +26,9 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type: String, // url
-        required: true
     },
     coverImage: {
         type: String, // url
-        required: true
     },
     password: {
         type: String,

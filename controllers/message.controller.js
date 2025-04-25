@@ -13,7 +13,7 @@ const sendMessage = asyncHandler(async (req, res) => {
 
     // extrecting the user message from the request body
     const { receiverMessage } = req.body;
-    console.log("receiverMessage", receiverMessage);
+    //console.log("receiverMessage", receiverMessage);
 
     // checking if the receiverMessage and content is present in the request body
     if (!receiverMessage) {

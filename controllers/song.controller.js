@@ -128,6 +128,8 @@ const playSuggestedSong = asyncHandler(async (req, res) => {
   // Step 6: find next song based on generated text response which is title and artists
   // Step 7: return res of next song to play
 
+  console.log("GROQ_API_KEY from env:", process.env.GROQ_API_KEY);
+
   const currentSongId = req.updatingHistory.songId;
 
   if (!currentSongId) {

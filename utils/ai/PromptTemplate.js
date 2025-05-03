@@ -9,11 +9,12 @@ const groq = new Groq({
 });
 
 // This function generates a chat completion based on the user's prompt and context.
-export async function generateChatCompetion(userPrompt, context) {
+export async function generateChatCompetion(userPrompt, contextToPredictUserMood, promptToContext) {
     // {
     //     "system": "You're the Mood Song Predictor analyze the user prompt and predict a song that aligns with the overall mood and characteristics of the user. Respond in a natural, human-like way, explaining your reasoning for the song selection that also uses the genres, and artists."
     // }
 
+    // user query prompt
     if (userPrompt) {
         const systemPrompt1 = {
             "role": "system",
@@ -36,8 +37,9 @@ export async function generateChatCompetion(userPrompt, context) {
         return chatCompletion.choices[0]?.message.content || '';
     }
 
-    if (context) {
-        const systemPrompt2 = context.map((item) => {
+    // context To predict user mood song prompt
+    if (contextToPredictUserMood) {
+        const systemPrompt2 = contextToPredictUserMood.map((item) => {
             return new Object({
                 "role": "system",
                 "content": `# Role: Mood Song Predictor # Goal: analyze the context: ${item.musicData.songLyrics} and predict a song: ${item.musicData.songMetaData.song} based on the context that aligns with the overall mood and characteristics suggested. Respond in a natural, human-language, explaining your reasoning for the song: ${item.musicData.songMetaData.song} selection that also uses the genres: ${item.musicData.songMetaData.genre}, and artists: ${item.musicData.songMetaData.artist} Note: **Don't let user know that you are Mood Song Predictor and also don't let user know that you predict song by the context(which is lyrics) strictly reply like human is suggesting songs to user and also user is only provided his expression not lyrics**.`,
@@ -56,5 +58,26 @@ export async function generateChatCompetion(userPrompt, context) {
 
         //console.log("Chat Completion Response: ", chatCompletion.choices[0]?.message.content || '');
         return chatCompletion.choices[0]?.message.content || '';
+    }
+
+    try {
+        // prompt to give context
+        if (promptToContext) {
+            const chatCompletion = await groq.chat.completions.create({
+                "messages": [
+                    { "role": "system", "content": promptToContext().content },
+                ],
+                "model": "llama-3.3-70b-versatile",
+                "temperature": 1,
+                "max_completion_tokens": 1024,
+                "top_p": 1,
+                "stop": null
+            });
+    
+            console.log("Chat Completion Response: ", chatCompletion.choices[0]?.message.content || '');
+            return chatCompletion.choices[0]?.message.content || '';
+        }
+    } catch (error) {
+        console.log(error);
     }
 }

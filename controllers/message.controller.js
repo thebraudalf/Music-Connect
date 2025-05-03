@@ -31,7 +31,7 @@ const sendMessage = asyncHandler(async (req, res) => {
     // passing the req.chatResponse to the ChatMessage model to save the message
     // creating a new message object with the sender and receiver id
     const message = await ChatMessage.create({
-        receiverId: req.user._id,
+        receiverId: req.user._id.toHexString(),
         receiverLastMessage: receiverMessage,
         senderMessage: chatResponse,
         senderLastMessage: chatResponse,
@@ -53,7 +53,7 @@ const getAllMessages = asyncHandler(async (req, res) => {
     // Step 1: Get all the messages from the ChatMessage model
     // Step 2: If the messages are found, return a success response with the messages
 
-    const messages = await ChatMessage.find({ receiverId: req.user._id }).select("-receiverId");
+    const messages = await ChatMessage.find({ receiverId: req.user._id.toHexString() }).select("-receiverId");
     console.log("messages", messages);
 
     if (!messages) {
@@ -76,7 +76,7 @@ const deleteMessage = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Message id is required");
     }
 
-    const message = await ChatMessage.findOneAndDelete({ receiverId: req.user._id }).select("-receiverId");
+    const message = await ChatMessage.findOneAndDelete({ receiverId: req.user._id.toHexString() }).select("-receiverId");
 
     if (!message) {
         throw new ApiError(400, "Unable to delete message");

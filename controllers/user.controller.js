@@ -469,6 +469,16 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, user, "Cover Image updated successfully"))
 })
 
+// listening history logic
+const listeningHistory = asyncHandler(async (req, res) => {
+    // Step 1: find song events, userId and songId by userId from listeningHistory collection
+    // Step 2: find recent song by songId from songs collection
+    // Step 3: insert the recent song in listeningHistory field of user collection 
+    // Step 4: return res
+
+    
+})
+
 export {
     registerUser,
     loginUser,

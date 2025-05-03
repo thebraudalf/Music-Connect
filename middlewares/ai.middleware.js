@@ -3,7 +3,6 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 import { Response } from "../models/response.model.js";
 import { getEmbedding } from "../utils/ai/generateEmbeddings.js";
 import { ApiError } from "../utils/ApiError.js";
-import e from "cors";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 
 const chatGeneration = asyncHandler(async (req, res, next) => {

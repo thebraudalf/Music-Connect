@@ -154,6 +154,7 @@ const playSuggestedSong = asyncHandler(async (req, res) => {
   const listeningHistorySongs = await Song.find({
     songId: listeningHistory.map((history) => history.songId),
   });
+  console.log(listeningHistorySongs);
   if (!listeningHistorySongs) {
     throw new ApiError(404, "Listening history songs not found.");
   }

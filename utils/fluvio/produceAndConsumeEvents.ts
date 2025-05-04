@@ -43,7 +43,7 @@ async function ensureTopicExists(fluvio: typeof Fluvio): Promise<void> {
 // function to produce events
 async function produceEvents(params: ProduceEventParams): Promise<void> {
   try {
-    process.env.FLUVIO_CONFIG = "./fluvio_config.txt";
+    process.env.FLUVIO_CONFIG = "./fluvio-config";
     const fluvio = await Fluvio.connect();
     await ensureTopicExists(fluvio);
 
@@ -69,7 +69,7 @@ async function produceEvents(params: ProduceEventParams): Promise<void> {
 async function consumeEvents() {
   return new Promise(async (resolve, reject) => {
     try {
-      process.env.FLUVIO_CONFIG = "./fluvio_config.txt";
+      process.env.FLUVIO_CONFIG = "./fluvio-config";
       const fluvio = await Fluvio.connect();
       const consumer = await fluvio.partitionConsumer(TOPIC_NAME, PARTITION);
 

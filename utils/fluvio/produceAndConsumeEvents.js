@@ -26,7 +26,7 @@ async function ensureTopicExists(fluvio) {
 // function to produce events
 async function produceEvents(params) {
     try {
-        process.env.FLUVIO_CONFIG = "./fluvio_config.txt";
+        process.env.FLUVIO_CONFIG = "./fluvio-config";
         const fluvio = await Fluvio.connect();
         await ensureTopicExists(fluvio);
         const producer = await fluvio.topicProducer(TOPIC_NAME);
@@ -49,7 +49,7 @@ async function produceEvents(params) {
 async function consumeEvents() {
     return new Promise(async (resolve, reject) => {
         try {
-            process.env.FLUVIO_CONFIG = "./fluvio_config.txt";
+            process.env.FLUVIO_CONFIG = "./fluvio-config";
             const fluvio = await Fluvio.connect();
             const consumer = await fluvio.partitionConsumer(TOPIC_NAME, PARTITION);
             const smartModuleName = "music-connect-team/listening-history-module@0.1.0";

@@ -1,0 +1,21 @@
+profiles:
+  default:
+    endpoint: "127.0.0.1:9003"
+    tls: false
+current_profile: "default"
+
+version = "2.0"
+current_profile = "local"
+
+[profile.local]
+cluster = "local"
+
+[cluster.local]
+endpoint = "127.0.0.1:9003"
+use_spu_local_address = false
+
+[cluster.local.tls]
+tls_policy = "disabled"
+
+[cluster.local.metadata]
+installation = "local"

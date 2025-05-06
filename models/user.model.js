@@ -30,6 +30,9 @@ const userSchema = new mongoose.Schema({
     coverImage: {
         type: String, // url
     },
+    listeningHistory: {
+        type: [Object]
+    },
     password: {
         type: String,
         required: [true, "Password is required"]

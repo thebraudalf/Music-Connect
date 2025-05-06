@@ -3,7 +3,7 @@ import { request } from "undici";
 // Function to fetch a requested playlist from the API
 async function searchaPlaylist(playlistName) {
 	try {
-		const searchPlaylist = await request(`https://saavn.dev/api/search/playlists?query=${playlistName.toLowerCase().replaceAll(" ", "-")}`);
+		const searchPlaylist = await request(`https://jiosaavn-api-wbnc.vercel.app/api/search/playlists?query=${playlistName.toLowerCase().replaceAll(" ", "-")}`);
 		//console.log(playlistName.toLowerCase().replaceAll(" ", "-"));
 		const getplaylist = await searchPlaylist.body.json();
 
@@ -18,7 +18,7 @@ async function searchaPlaylist(playlistName) {
 
 async function fetchPlaylist(playlistId) {
 	try {
-		const fetchPlaylistData = await request(`https://saavn.dev/api/playlists?id=${playlistId}`);
+		const fetchPlaylistData = await request(`https://jiosaavn-api-wbnc.vercel.app/api/playlists?id=${playlistId}`);
 		const getPlaylistData = await fetchPlaylistData.body.json();
 
 		//console.log(getPlaylistData);

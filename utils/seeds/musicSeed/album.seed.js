@@ -3,7 +3,7 @@ import { request } from "undici";
 // Function to search a requested album from the API
 async function searchaAlbum(albumName) {
 	try {
-		const searchAlbum = await request(`https://saavn.dev/api/search/albums?query=${albumName.toLowerCase().replaceAll(" ", "-")}`);
+		const searchAlbum = await request(`https://jiosaavn-api-wbnc.vercel.app/api/search/albums?query=${albumName.toLowerCase().replaceAll(" ", "-")}`);
 		//console.log(albumName.toLowerCase().replaceAll(" ", "-"));
 		const getalbum = await searchAlbum.body.json();
 
@@ -18,7 +18,7 @@ async function searchaAlbum(albumName) {
 // Function to fetch a requested album from the API
 async function fetchAlbum(albumId) {
 	try {
-		const fetchAlbumData = await request(`https://saavn.dev/api/albums?id=${albumId}`);
+		const fetchAlbumData = await request(`https://jiosaavn-api-wbnc.vercel.app/api/albums?id=${albumId}`);
 		const getAlbumData = await fetchAlbumData.body.json();
 
 		//console.log(getAlbumData);

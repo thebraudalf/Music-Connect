@@ -4,6 +4,7 @@
 # Start Fluvio Cluster
 fluvio cluster start
 
+
 # Access listening-history-module current directory
 cd utils/fluvio/listening-history-module
 

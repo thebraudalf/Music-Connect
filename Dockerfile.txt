@@ -1,5 +1,5 @@
 # Use the Ubuntu base image
-FROM node:18-alpine
+FROM node:18
 
 # Install Fluvio
 RUN curl -fsS https://hub.infinyon.cloud/install/install.sh?ctx=dc | bash

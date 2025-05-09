@@ -30,15 +30,22 @@ RUN npm install
 # Copy the rest of your application code
 COPY . .
 
-# Copy the entrypoint script
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+# Start Fluvio Cluster
+RUN fluvio cluster start
 
-# Make the script executable
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# Access listening-history-module current directory
+RUN cd utils/fluvio/listening-history-module
+
+# Build Smart Module
+RUN smdk build
+
+# Load Smart Module
+RUN smdk load
 
 # Set the entrypoint
 # Expose the port your app runs on
 EXPOSE 8000
 
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+CMD [ "npm","run","server" ]

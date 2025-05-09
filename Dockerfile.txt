@@ -33,14 +33,8 @@ COPY . .
 # Start Fluvio Cluster
 RUN fluvio cluster start
 
-# Access listening-history-module current directory
-RUN cd utils/fluvio/listening-history-module
-
-# Build Smart Module
-RUN smdk build
-
-# Load Smart Module
-RUN smdk load
+# Build and load SmartModule from the current directory
+RUN cd utils/fluvio/listening-history-module && smdk build && smdk load
 
 # Set the entrypoint
 # Expose the port your app runs on

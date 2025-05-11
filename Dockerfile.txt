@@ -33,8 +33,22 @@ COPY . .
 # Start Fluvio Cluster
 RUN fluvio cluster start
 
-# Build and load SmartModule from the current directory
-RUN cd utils/fluvio/listening-history-module && smdk build && smdk load
+# Install Rust and Setup up environment variables in .bashrc
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Install WASM target
+RUN rustup target add wasm32-wasip1
+
+# Copy Rust smartmodule
+COPY utils/fluvio/listening-history-module/ utils/fluvio/listening-history-module/
+
+# Build the SmartModule (WASM)
+WORKDIR /utils/fluvio/listening-history-module
+RUN cargo build --target wasm32-wasip1 --release
+
+# Build and load SmartModule Development Kit from the current directory
+RUN smdk build && smdk load
 
 # Set the entrypoint
 # Expose the port your app runs on

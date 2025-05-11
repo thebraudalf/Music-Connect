@@ -44,7 +44,7 @@ RUN rustup target add wasm32-wasip1
 COPY utils/fluvio/listening-history-module/ utils/fluvio/listening-history-module/
 
 # Build the SmartModule (WASM)
-WORKDIR /utils/fluvio/listening-history-module
+WORKDIR /app/utils/fluvio/listening-history-module
 RUN cargo build --target wasm32-wasip1 --release
 
 # Build and load SmartModule Development Kit from the current directory

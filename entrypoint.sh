@@ -1,17 +1,11 @@
-
 #!/bin/bash
 
-# Start Fluvio Cluster
-fluvio cluster start
+# Log in to Fluvio
+fluvio cloud login --email $FLUVIO_CLOUD_EMAIL --password $FLUVIO_CLOUD_PASSWORD
 
-# Access listening-history-module current directory
-cd utils/fluvio/listening-history-module
+# syncing configs
+fluvio cloud cluster sync
 
-# Building Smart Module
-smdk build
-
-# Loading Smart Module
-smdk load
 
 # Start the application
 exec npm run server

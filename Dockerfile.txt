@@ -30,30 +30,15 @@ RUN npm install
 # Copy the rest of your application code
 COPY . .
 
-# Start Fluvio Cluster
-RUN fluvio cluster start
+# Copy the entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-# Install Rust and Setup up environment variables in .bashrc
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
-
-# Install WASM target
-RUN rustup target add wasm32-wasip1
-
-# Copy Rust smartmodule
-COPY utils/fluvio/listening-history-module/ utils/fluvio/listening-history-module/
-
-# Build the SmartModule (WASM)
-WORKDIR /app/utils/fluvio/listening-history-module
-RUN cargo build --target wasm32-wasip1 --release
-
-# Build and load SmartModule Development Kit from the current directory
-RUN smdk build && smdk load
+# Make the script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set the entrypoint
 # Expose the port your app runs on
 EXPOSE 8000
 
 
-
-CMD [ "npm","run","server" ]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

@@ -3,9 +3,10 @@ const newrequire = createRequire(import.meta.url);
 const fluvioClient = newrequire("@fluvio/client");
 const Fluvio = fluvioClient.default;
 const Offset = fluvioClient.Offset;
+const OffsetFrom = fluvioClient.OffsetFrom;
 const Record = fluvioClient.Record;
 const SmartModuleType = fluvioClient.SmartModuleType;
-const TOPIC_NAME = "test-topic";
+const TOPIC_NAME = "test-topic-2";
 const PARTITION = 0;
 // function to check topic is already exists
 async function ensureTopicExists(fluvio) {
@@ -39,7 +40,7 @@ async function produceEvents(params) {
         };
         const eventData = JSON.stringify(event);
         await producer.sendRecord(eventData, PARTITION);
-        //console.log(`Produced record: ${eventData} to topic "${TOPIC_NAME}" partition ${PARTITION}`,);
+        console.log(`Produced record: ${eventData} to topic "${TOPIC_NAME}" partition ${PARTITION}`);
     }
     catch (error) {
         console.error("Error during produce operation:", error);
@@ -56,8 +57,8 @@ async function consumeEvents() {
             const smartModuleName = "music-connect-team/listening-history-module@0.1.0";
             //console.log(`Listening on "${TOPIC_NAME}" using SmartModule..."`);
             // using streamWithConfig() method to access smartmodule
-            const stream = await consumer.streamWithConfig(Offset.FromEnd(), {
-                smartModuleName: smartModuleName,
+            const stream = await consumer.streamWithConfig(new Offset({ index: 1, from: OffsetFrom.End }), {
+                smartmoduleName: smartModuleName,
                 smartmoduleType: SmartModuleType.FilterMap,
             });
             for await (const record of stream) {
@@ -65,7 +66,7 @@ async function consumeEvents() {
                 if (value) {
                     try {
                         const parsed = JSON.parse(value);
-                        //console.log("Filtered event from SmartModule:", parsed);
+                        console.log("Filtered event from SmartModule:", parsed);
                         resolve(parsed); // Return first match and exit
                         break;
                     }
@@ -75,21 +76,6 @@ async function consumeEvents() {
                     }
                 }
             }
-            // consume stream for cloud cluster
-            /*await consumer.stream(Offset.FromEnd(), async (record: typeof Record) => {
-              const value = record.valueString();
-              console.log(value);
-              if (value) {
-                try {
-                  const parsed = JSON.parse(value);
-                  console.log("Filtered event from SmartModule:", parsed);
-                  resolve(parsed); // Return first match and exit
-                } catch (err) {
-                  console.log(err);
-                  reject(new Error(`Failed to parse record: ${value}`));
-                }
-              }
-            });*/
         }
         catch (err) {
             console.log(err);
